@@ -1,6 +1,7 @@
 module HamlLint::Tree
   # Represents a tag node in a HAML document.
   class TagNode < Node
+    include HamlLint::RubyParser
     # Computed set of attribute hashes code.
     #
     # This is a combination of all dynamically calculated attributes from the
@@ -210,7 +211,7 @@ module HamlLint::Tree
     private
 
     def parsed_attributes
-      HamlLint::RubyParser.new.parse(hash_attributes_source)
+      parse_ruby(hash_attributes_source)
     end
 
     def existing_attributes

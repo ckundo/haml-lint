@@ -7,23 +7,19 @@ module HamlLint
   # This provides a convenient wrapper around the `parser` gem and the
   # `astrolabe` integration to go with it. It is intended to be used for linter
   # checks that require deep inspection of Ruby code.
-  class RubyParser
-    # Creates a reusable parser.
-    def initialize
-      @builder = ::Astrolabe::Builder.new
-      @parser = ::Parser::CurrentRuby.new(@builder)
-    end
-
+  module RubyParser
     # Parse the given Ruby source into an abstract syntax tree.
     #
     # @param source [String] Ruby source code
     # @return [Array] syntax tree in the form returned by Parser gem
-    def parse(source)
+    def parse_ruby(source)
+      builder = ::Astrolabe::Builder.new
+      parser = ::Parser::CurrentRuby.new(builder)
       buffer = ::Parser::Source::Buffer.new('(string)')
       buffer.source = source
 
-      @parser.reset
-      @parser.parse(buffer)
+      parser.reset
+      parser.parse(buffer)
     end
   end
 end

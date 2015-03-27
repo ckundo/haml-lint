@@ -11,6 +11,7 @@ module HamlLint
   #   %tag{ class: 'class-name' }
   class Linter::ClassAttributeWithStaticValue < Linter
     include LinterRegistry
+    include RubyParser
 
     STATIC_TYPES = [:str, :sym]
     STATIC_CLASSES = [String, Symbol]
